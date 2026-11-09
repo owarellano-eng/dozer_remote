@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dozer Remote Controller</title>
+<style>
+:root{color-scheme:dark;font:16px system-ui;background:#0b1020;color:#eef2ff}*{box-sizing:border-box}body{margin:0;padding:20px;max-width:1100px;margin:auto}h1{margin:.2em 0}.muted{color:#aab8d0}.card{background:#142039;border:1px solid #30415f;border-radius:14px;padding:16px;margin:14px 0}input,button{font:inherit;border-radius:9px;padding:11px;border:1px solid #455777;background:#0b1426;color:white}button{cursor:pointer;background:#244b7d}button:disabled{opacity:.5}#screen{width:100%;max-height:70vh;object-fit:contain;background:#05080e;border-radius:10px;touch-action:none}#controls{display:none}.line{display:flex;gap:8px;flex-wrap:wrap}#message{min-height:1.4em;color:#ffd58a}input[type=text]{min-width:180px;flex:1}
+</style></head><body><h1>🖥️ Dozer Remote</h1><p class="muted">Private local-network controller · Keep the host terminal and pairing code private.</p>
+<section class="card" id="pairbox"><h2>Pair with your PC</h2><p class="muted">Enter the six-digit code shown in the Windows host terminal. Both devices must be on the same trusted network.</p><div class="line"><input id="code" inputmode="numeric" maxlength="6" placeholder="6-digit code"><button id="pair">Connect</button></div><p id="message"></p></section>
+<section id="controls"><div class="card"><div class="line"><strong>PC screen</strong><button id="refresh">Refresh</button><button id="disconnect">Disconnect</button></div><p class="muted">Tap or click the screen to move the PC pointer. Double-tap is not required; use the buttons below.</p><img id="screen" alt="PC screen preview"></div>
+<div class="card"><h2>Keyboard</h2><div class="line"><input id="typed" type="text" placeholder="Type text on your PC"><button id="send">Send text</button></div><div class="line" style="margin-top:10px"><button data-key="enter">Enter</button><button data-key="esc">Esc</button><button data-key="tab">Tab</button><button data-key="backspace">Backspace</button><button data-key="up">↑</button><button data-key="down">↓</button><button data-key="left">←</button><button data-key="right">→</button></div></div></section>
+<script>
+const $=id=>document.getElementById(id);let timer=null;
+async function api(path,body){const r=await fetch('/api/'+path,{method:body?'POST':'GET',headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined});const j=await r.json();if(!r.ok)throw Error(j.error||'Request failed');return j}
+function showControls(){ $('pairbox').style.display='none';$('controls').style.display='block';refresh();timer=setInterval(refresh,1800)}
+async function refresh(){ $('screen').src='/api/screen.jpg?t='+Date.now() }
+$('pair').onclick=async()=>{try{await api('pair',{code:$('code').value});$('message').textContent='Connected';showControls()}catch(e){$('message').textContent=e.message}};
+$('refresh').onclick=refresh;
+$('screen').onclick=async e=>{const r=e.currentTarget.getBoundingClientRect();const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;try{await api('mouse',{x,y,click:'left'})}catch(e){alert(e.message)}};
+$('screen').oncontextmenu=async e=>{e.preventDefault();const r=e.currentTarget.getBoundingClientRect();try{await api('mouse',{x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height,click:'right'})}catch(err){alert(err.message)}};
+$('send').onclick=async()=>{try{await api('input',{action:'type',text:$('typed').value});$('typed').value=''}catch(e){alert(e.message)}};
+document.querySelectorAll('[data-key]').forEach(b=>b.onclick=async()=>{try{await api('input',{action:'key',key:b.dataset.key})}catch(e){alert(e.message)}});
+$('disconnect').onclick=async()=>{clearInterval(timer);await api('unpair',{});location.reload()};
+</script></body></html>
