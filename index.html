@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1020">
+<title>Dozer Remote</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:#0b1020;color:#eef2ff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 80% 0%,#1b3158 0,transparent 42%),#0b1020}
+header{max-width:1050px;margin:auto;padding:26px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #25314b}
+.brand{display:flex;align-items:center;gap:12px;font-weight:750;font-size:20px}.logo{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#213b63;font-size:21px}
+.tag{font-size:12px;color:#b8c6df;border:1px solid #3a4b6b;border-radius:99px;padding:7px 11px}
+main{max-width:1050px;margin:48px auto;padding:0 22px 50px}
+h1{font-size:clamp(34px,6vw,58px);line-height:1.05;letter-spacing:-.04em;margin:0 0 15px}
+.lead{max-width:650px;color:#b8c6df;font-size:17px;line-height:1.65}
+.panel{background:#121d32;border:1px solid #2a3a59;border-radius:18px;padding:22px;margin-top:28px;box-shadow:0 18px 60px #0003}
+.status{display:inline-flex;align-items:center;gap:9px;color:#ffda9c;background:#45351d;border:1px solid #70582c;padding:8px 12px;border-radius:99px;font-size:13px;font-weight:650}
+.dot{width:8px;height:8px;border-radius:50%;background:#ffc45c}
+h2{font-size:21px;margin:0 0 10px}p{line-height:1.6;color:#b8c6df}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+.tile{background:#0d1628;border:1px solid #263651;border-radius:13px;padding:17px}
+.tile strong{display:block;margin:8px 0 5px}.tile span{font-size:23px}
+ol{padding-left:22px;color:#dce5f6;line-height:1.9}
+.note{border-left:3px solid #e6b85d;padding:4px 0 4px 14px}
+footer{max-width:1050px;margin:auto;padding:0 22px 28px;color:#8090aa;font-size:12px}
+@media(max-width:600px){header{padding:18px}main{margin:32px auto}.panel{padding:17px}}
+</style></head><body>
+<header><div class="brand"><div class="logo">🖥️</div><span>Dozer Remote</span></div><span class="tag">WEB DASHBOARD · v2.0</span></header>
+<main>
+<h1>Your PC.<br>One dashboard.</h1>
+<p class="lead">The browser interface for Dozer Remote is published. Before remote controls can be enabled, the connection method must be approved for the network and devices you are using.</p>
+<section class="panel">
+<div class="status"><span class="dot"></span> Connection not configured</div>
+<h2 style="margin-top:18px">Remote connection is not active</h2>
+<p>This page is a hosted dashboard only. It does not currently receive your PC screen or send mouse and keyboard input. A secure, administrator-approved connection service and a running Windows host are still required.</p>
+<div class="grid">
+<div class="tile"><span>🖥️</span><strong>Windows host</strong><p>Runs on the PC you own and want to access.</p></div>
+<div class="tile"><span>🌐</span><strong>Browser dashboard</strong><p>Opens in Chrome without installing a Chromebook app.</p></div>
+<div class="tile"><span>🔐</span><strong>Private connection</strong><p>Must use an approved encrypted connection. Never publish pairing codes or passwords here.</p></div>
+</div></section>
+<section class="panel"><h2>Next steps</h2>
+<ol><li>Ask the school administrator which remote-access services and connection types are permitted on the managed Chromebook.</li><li>Choose a connection service approved for both your Chromebook and your Windows PC.</li><li>Keep the Windows host running only while you need it, and protect it with a strong sign-in and private pairing.</li></ol>
+<p class="note">This dashboard does not disguise traffic, bypass school filters, or override Chromebook management settings. If a connection is blocked by school policy, ask the administrator to approve an allowed method.</p>
+</section></main><footer>Dozer Remote · Personal project · Keep access codes private.</footer></body></html>
